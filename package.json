@@ -1,0 +1,29 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "firebase-admin": "^13.5.0",
+    "xlsx": "^0.18.5"
+  },
+  "name": "guanajuato_chatbot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "seed": "node upload_xlsx_to_firestore.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebas7532silva/guanajuato_chatbot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebas7532silva/guanajuato_chatbot/issues"
+  },
+  "homepage": "https://github.com/sebas7532silva/guanajuato_chatbot#readme",
+  "description": ""
+}
