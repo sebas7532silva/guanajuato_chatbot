@@ -3,18 +3,25 @@ const router = express.Router();
 const db = require('../src/config/firebase');
 const collection = db.collection('oficinas');
 
-// CREATE
+// CREATE con ID personalizado
 router.post('/', async (req, res) => {
   try {
-    const data = req.body;
-    const ref = await collection.add(data);
-    res.status(201).json({ id: ref.id, ...data });
+    const { id, oficina, titular, horarioAtencion, diasAtencionTramites, domicilio, diasNoLaborales, telefonoCitas, telefonoAsesoria, recepcion, horarioSinCita } = req.body;
+
+    if (!id || !oficina || !titular) {
+      return res.status(400).json({ error: 'Faltan campos obligatorios: id, oficina o titular' });
+    }
+
+    const data = { oficina, titular, horarioAtencion, diasAtencionTramites, domicilio, diasNoLaborales, telefonoCitas, telefonoAsesoria, recepcion, horarioSinCita };
+
+    await collection.doc(id).set(data);
+    res.status(201).json({ message: 'Oficina creada', id, ...data });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// READ
+// READ (todos)
 router.get('/', async (req, res) => {
   try {
     const snapshot = await collection.get();
@@ -25,24 +32,25 @@ router.get('/', async (req, res) => {
   }
 });
 
-// UPDATE
+// UPDATE por ID personalizado
 router.put('/:id', async (req, res) => {
   try {
     await collection.doc(req.params.id).update(req.body);
-    res.json({ message: 'Oficina actualizada' });
+    res.json({ message: `Oficina ${req.params.id} actualizada correctamente` });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// DELETE
+// DELETE por ID personalizado
 router.delete('/:id', async (req, res) => {
   try {
     await collection.doc(req.params.id).delete();
-    res.json({ message: 'Oficina eliminada' });
+    res.json({ message: `Oficina ${req.params.id} eliminada correctamente` });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
 module.exports = router;
+
