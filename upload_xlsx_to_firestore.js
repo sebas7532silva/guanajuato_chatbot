@@ -27,7 +27,7 @@ async function upload(file, collectionName, idField = null) {
 
 (async () => {
   try {
-    await upload('oficinas.xlsx', 'oficinas');
+    await upload('oficinas.xlsx', 'idOficina');
     await upload('requisitos.xlsx', 'requisitos', 'reqId');
     await upload('requisitos-tramites.xlsx', 'requisitos-tramites', 'reqDocId');
     await upload('tramites.xlsx', 'tramites', 'TramiteId');
