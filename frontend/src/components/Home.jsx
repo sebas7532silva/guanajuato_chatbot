@@ -11,9 +11,9 @@ const Home = ({ onChatOpen }) => {
       descripcion: "Información sobre renovación de placas vehiculares",
     },
     {
-      id: "2",
-      titulo: "Cambio de Propietario",
-      descripcion: "Transferencia de propiedad vehicular",
+      id: "39",
+      titulo: "Canje de placas",
+      descripcion: "Canje de placas y tarjeta de circulación",
     },
     {
       id: "41",
@@ -105,9 +105,9 @@ const Home = ({ onChatOpen }) => {
                     onClick={() => irADetalle(tramites[1])}    >
               <div className="card-body text-center">
                 <div className="mb-2 fs-1 text-success">🔄</div>
-                <h5 className="fw-semibold">Cambio de Propietario</h5>
+                <h5 className="fw-semibold">Canje de Placas Metálicas</h5>
                 <p className="text-muted small">
-                  Transferencia de propiedad vehicular
+                  Canje de Placas Metálicas y Tarjeta de Circulación 2020
                 </p>
               </div>
             </div>
@@ -124,9 +124,9 @@ const Home = ({ onChatOpen }) => {
                 onClick={() => irADetalle(tramites[2])}>
               <div className="card-body text-center">
                 <div className="mb-2 fs-1 text-warning">💰</div>
-                <h5 className="fw-semibold">Pagar Tenencia</h5>
+                <h5 className="fw-semibold">Reposición de placas</h5>
                 <p className="text-muted small">
-                  Consulta y pago de impuestos vehiculares
+                  Por robo y extravío
                 </p>
               </div>
             </div>
