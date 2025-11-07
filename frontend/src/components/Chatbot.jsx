@@ -26,6 +26,7 @@ const Chatbot = ({ isOpen, onToggle }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
       });
+      console.log(input);
 
       const data = await response.json();
       const reply = data.reply || "Lo siento, no entendí tu consulta 😅.";

@@ -2,6 +2,8 @@
 import Header from './Header'
 import Footer from './Footer'
 import Home from './Home'
+import Oficinas from './Oficinas';
+import Tramites from './Tramites';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TramiteDetalle from './TramiteDetalle';
 import Chatbot from './Chatbot';
@@ -22,6 +24,16 @@ function App() {
           path="/tramite/:tramiteId"
           element={<TramiteDetalle />}
           />
+          <Route
+            path="/oficinas"
+            element={<Oficinas />}
+          />
+          <Route
+            path="/tramites"
+            element={<Tramites />}
+          />
+
+
         </Routes>
         <Chatbot isOpen={isChatOpen} onToggle={toggleChat} />
         <Footer />

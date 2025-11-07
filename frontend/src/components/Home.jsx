@@ -11,14 +11,14 @@ const Home = ({ onChatOpen }) => {
       descripcion: "Información sobre renovación de placas vehiculares",
     },
     {
-      id: "CAMBIO-PROPIETARIO",
+      id: "2",
       titulo: "Cambio de Propietario",
       descripcion: "Transferencia de propiedad vehicular",
     },
     {
-      id: "PAGAR-TENENCIA",
-      titulo: "Pagar Tenencia",
-      descripcion: "Consulta y pago de impuestos vehiculares",
+      id: "41",
+      titulo: "Reposición de placas",
+      descripcion: "Reposición de placas por robo o extravío",
     },
     {
       id: "UBICAR-OFICINAS",
@@ -30,6 +30,10 @@ const Home = ({ onChatOpen }) => {
   const irADetalle = (tramite) => {
     console.log("Trámite clickeado:", tramite);
     navigate(`/tramite/${tramite.id}`, { state: tramite });
+  };
+
+  const irAOficinas = () => {
+    navigate('/oficinas');
   };
 
   return (
@@ -60,7 +64,8 @@ const Home = ({ onChatOpen }) => {
             onClick={onChatOpen}>
               💬 Iniciar Chat
             </button>
-            <button className="btn btn-outline-light fw-semibold px-4 py-2">
+            <button className="btn btn-outline-light fw-semibold px-4 py-2"
+            onClick={irAOficinas}>
               📍 Ubicar Oficinas
             </button>
           </div>
@@ -134,7 +139,7 @@ const Home = ({ onChatOpen }) => {
                         boxShadow: "0 4px 10px rgba(0, 77, 193, 0.1)",
                         cursor: "pointer",
                         }}
-                    onClick={() => irADetalle(tramites[3])}>
+                    onClick={() => irAOficinas()}>
               <div className="card-body text-center">
                 <div className="mb-2 fs-1 text-info">📍</div>
                 <h5 className="fw-semibold">Ubicar Oficinas</h5>
