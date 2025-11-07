@@ -1,0 +1,29 @@
+@font-face {
+    src: url(../vendor/fonts/Inter-Regular.woff2) format("woff2");
+    font-family: "My Inter";
+    font-weight: normal;
+  }
+  
+@font-face {
+  src: url(../vendor/fonts/Inter-Black.woff2) format("woff2");
+  font-family: "My Inter Black";
+  font-weight: 900;
+}
+
+@font-face {
+  src: url(../vendor/fonts/Saiyan-Sans.ttf) format("truetype");
+  font-family: "Saiyan Sans";
+  font-weight: normal;
+}
+
+@font-face {
+  src: url(../vendor/fonts/ComicRelief-Regular.ttf) format("truetype");
+  font-family: "My Comic Relief";
+  font-weight: normal;
+}
+
+@font-face {
+  src: url(../vendor/fonts/ComicRelief-Bold.ttf) format("truetype");
+  font-family: "My Comic Relief Bold";
+  font-weight: 900;
+}

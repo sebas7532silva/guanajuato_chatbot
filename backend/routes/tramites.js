@@ -3,19 +3,18 @@ const router = express.Router();
 const db = require('../src/config/firebase');
 const collection = db.collection('tramites');
 
-// CREATE con ID personalizado
+// CREATE
 router.post('/', async (req, res) => {
   try {
-    const { id, tramiteIdSAP, tramiteNombre, categoriaId, categoriaNombre, tipoTramite } = req.body;
+    const { tramiteId, tramiteIdSAP, categoriaId, categoriaNombre, tipoTramite } = req.body;
 
-    if (!id || !tramiteIdSAP || !tramiteNombre) {
-      return res.status(400).json({ error: 'Faltan campos obligatorios: id, tramiteIdSAP o tramiteNombre' });
+    if (!tramiteId || !tipoTramite) {
+      return res.status(400).json({ error: 'Faltan campos obligatorios: tramiteId, tipoTramite' });
     }
 
-    const data = { tramiteIdSAP, tramiteNombre, categoriaId, categoriaNombre, tipoTramite };
-
-    await collection.doc(id).set(data);
-    res.status(201).json({ message: 'Trámite creado', id, ...data });
+    const data = { tramiteIdSAP, categoriaId, categoriaNombre, tipoTramite };
+    await collection.doc(tramiteId).set(data);
+    res.status(201).json({ message: 'Trámite creado', tramiteId, ...data });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -32,25 +31,37 @@ router.get('/', async (req, res) => {
   }
 });
 
-// UPDATE por ID personalizado
-router.put('/:id', async (req, res) => {
+// READ por ID
+router.get('/:tramiteId', async (req, res) => {
   try {
-    await collection.doc(req.params.id).update(req.body);
-    res.json({ message: `Trámite ${req.params.id} actualizado correctamente` });
+    const doc = await collection.doc(req.params.tramiteId).get();
+    if (!doc.exists) return res.status(404).json({ error: 'Trámite no encontrado' });
+    res.json({ id: doc.id, ...doc.data() });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// DELETE por ID personalizado
-router.delete('/:id', async (req, res) => {
+// UPDATE
+router.put('/:tramiteId', async (req, res) => {
   try {
-    await collection.doc(req.params.id).delete();
-    res.json({ message: `Trámite ${req.params.id} eliminado correctamente` });
+    await collection.doc(req.params.tramiteId).update(req.body);
+    res.json({ message: `Trámite ${req.params.tramiteId} actualizado correctamente` });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// DELETE
+router.delete('/:tramiteId', async (req, res) => {
+  try {
+    await collection.doc(req.params.tramiteId).delete();
+    res.json({ message: `Trámite ${req.params.tramiteId} eliminado correctamente` });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
 module.exports = router;
+
 

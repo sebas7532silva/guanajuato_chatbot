@@ -3,23 +3,24 @@ const router = express.Router();
 const db = require('../src/config/firebase');
 const collection = db.collection('requisitos-tramites');
 
-// CREATE con ID personalizado
+// CREATE
 router.post('/', async (req, res) => {
   try {
-    const { id, reqDocId, TramiteId } = req.body;
+    const { reqDocId, tramiteId, reqId } = req.body;
 
-    if (!id || !reqDocId || !TramiteId) {
-      return res.status(400).json({ error: 'Faltan campos obligatorios: id, reqDocId o TramiteId' });
+    if (!reqDocId || !tramiteId || !reqId) {
+      return res.status(400).json({ error: 'Faltan campos obligatorios: reqDocId, tramiteId o reqId' });
     }
 
-    await collection.doc(id).set({ reqDocId, TramiteId });
-    res.status(201).json({ message: 'Relación requisito-trámite creada', id, reqDocId, TramiteId });
+    const data = { tramiteId, reqId };
+    await collection.doc(reqDocId).set(data);
+    res.status(201).json({ message: 'Relación creada', reqDocId, ...data });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// READ (todos)
+// READ (todas)
 router.get('/', async (req, res) => {
   try {
     const snapshot = await collection.get();
@@ -30,21 +31,30 @@ router.get('/', async (req, res) => {
   }
 });
 
-// UPDATE por ID personalizado
-router.put('/:id', async (req, res) => {
+// READ por trámite
+router.get('/:tramiteId', async (req, res) => {
   try {
-    await collection.doc(req.params.id).update(req.body);
-    res.json({ message: `Relación requisito-trámite ${req.params.id} actualizada` });
+    const tId = Number(req.params.tramiteId); // convierte a número por seguridad
+    const snapshot = await collection.where('TramiteId', '==', tId).get();
+    const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    
+    if (items.length === 0) {
+      return res.status(404).json({ error: "No se encontraron requisitos para este trámite" });
+    }
+
+    res.json(items);
   } catch (err) {
+    console.error("Error en GET /requisitos-tramites/:tramiteId", err);
     res.status(500).json({ error: err.message });
   }
 });
 
-// DELETE por ID personalizado
-router.delete('/:id', async (req, res) => {
+
+// DELETE por reqDocId
+router.delete('/:reqDocId', async (req, res) => {
   try {
-    await collection.doc(req.params.id).delete();
-    res.json({ message: `Relación requisito-trámite ${req.params.id} eliminada correctamente` });
+    await collection.doc(req.params.reqDocId).delete();
+    res.json({ message: `Relación ${req.params.reqDocId} eliminada correctamente` });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

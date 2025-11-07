@@ -32,7 +32,18 @@ router.get('/', async (req, res) => {
   }
 });
 
-// UPDATE por ID personalizado
+// READ por ID
+router.get('/:id', async (req, res) => {
+  try {
+    const doc = await collection.doc(req.params.id).get();
+    if (!doc.exists) return res.status(404).json({ error: 'Oficina no encontrada' });
+    res.json({ id: doc.id, ...doc.data() });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// UPDATE por ID
 router.put('/:id', async (req, res) => {
   try {
     await collection.doc(req.params.id).update(req.body);
@@ -42,7 +53,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE por ID personalizado
+// DELETE por ID
 router.delete('/:id', async (req, res) => {
   try {
     await collection.doc(req.params.id).delete();
@@ -53,4 +64,5 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
+
 
