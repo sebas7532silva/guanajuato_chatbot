@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import api from "../utils/api";
+import { useNavigate } from "react-router-dom";
 
 const Tramites = () => {
+
+  const navigate = useNavigate();
   const [expanded, setExpanded] = useState(null);
   const [tramites, setTramites] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -41,10 +44,12 @@ const Tramites = () => {
             <div
               className="card shadow-sm border-0 h-100 hover-scale"
               style={{ cursor: "pointer", transition: "transform 0.2s" }}
-              onClick={() => toggleExpand(t.idTramite)}
+              onClick={() =>
+                navigate(`/tramite/${t.idTramite}`, { state: t })
+                      }
             >
               <div className="card-body">
-                <h6 className="fw-semibold mb-2">{t.titulo || t.categoriaNombre}</h6>
+                <h6 className="fw-semibold mb-2">{t.titulo || t.tramiteNombre}</h6>
                 <p className="text-muted small mb-1">{t.descripcion || "Consulta los detalles del trámite."}</p>
                 {expanded === t.idTramite && (
                   <div className="mt-2">

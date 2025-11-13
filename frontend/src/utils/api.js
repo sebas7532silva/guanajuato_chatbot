@@ -108,6 +108,14 @@ class ApiService {
       method: "DELETE",
     });
   }
+
+    // =====================
+  // 🖼️ BANNERS
+  // =====================
+  getBanners() {
+    return this.request("/banners");
+  }
+
 }
 
 // Exporta una instancia lista para usar

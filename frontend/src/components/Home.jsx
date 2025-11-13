@@ -1,9 +1,12 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
+import BannersCarousel from "./BannersCarousel";
+import { useEffect, useState } from "react";
 
 const Home = ({ onChatOpen }) => {
     const navigate = useNavigate();
+    const [showCarousel, setShowCarousel] = useState(false);
     const tramites = [
     {
       id: "102",
@@ -36,8 +39,19 @@ const Home = ({ onChatOpen }) => {
     navigate('/oficinas');
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowCarousel(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+
   return (
     <div className="bg-light pb-5">
+      {/* Popup de banners */}
+      <BannersCarousel show={showCarousel} onClose={() => setShowCarousel(false)} />
+
       {/* Encabezado principal con degradado */}
       <section
         className="py-5"

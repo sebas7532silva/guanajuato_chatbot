@@ -8,6 +8,7 @@ const requisitos = require('./routes/requisitos');
 const requisitosTramites = require('./routes/requisitosTramites');
 const tramites = require('./routes/tramites');
 const chatRoutes = require('./routes/chat');
+const bannersRoutes = require('./routes/banners');
 
 console.log("🔑 Gemini API Key detectada:", process.env.PORT ? "✅ Sí" : "❌ No");
 
@@ -20,6 +21,7 @@ app.use('/requisitos', requisitos);
 app.use('/requisitos-tramites', requisitosTramites);
 app.use('/tramites', tramites);
 app.use('/chat', chatRoutes);
+app.use('/banners', bannersRoutes);
 
 app.get('/', (req, res) => res.send('Backend Chatbot Guanajuato funcionando.'));
 
